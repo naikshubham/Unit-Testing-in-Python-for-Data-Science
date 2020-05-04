@@ -193,6 +193,8 @@ def test_on_string_with_one_comma():
     assert return_value == 2018
 ```
 
+### Testing for exceptions instead of return values
+- We have used the assert statement to check if a function returns the expected value. However, some functions may not return anything, but rather raise an exception, when called on certain arguments.
 
 
 
