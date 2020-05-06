@@ -196,6 +196,98 @@ def test_on_string_with_one_comma():
 ### Testing for exceptions instead of return values
 - We have used the assert statement to check if a function returns the expected value. However, some functions may not return anything, but rather raise an exception, when called on certain arguments.
 
+```python
+import numpy as np
+example_argument = np.array([[2081, 314942],
+                            [1059, 186606],
+                            [1148, 206186],])
+split_into_training_and_testing_sets(example_argument)
+```
+
+- This function returns a two-tuple containing the training and the testing array. It puts 75% of the rows of the argument Numpy Array into the training array, and the rest of the rows into the testing array. This function expects the argument array to have rows and columns, that is, the argument array must be two dimensional. Otherwise, splitting by rows is undefined.
+- So if we pass a one dimensional array to this function, it should not return anything, but rather raise a ValueError, which is a specific type of exception.  
+- Goal : test whether the function raises a ValueError when it gets a one dimensional array as argument.
+
+```python
+def test_valueerror_on_one_dimensional_argument():
+    example_argument = np.array([2081, 314942, 1059, 186606, 1148, 206186])
+    with pytest.raises(ValueError):
+```
+
+#### Theoretical structure of a with statement
+
+```python
+with context_manager:
+    print("This is a part of the context") # any code inside is the context
+```
+
+- The with statement takes a single argument, which is known as a context manager. The context manager runs some code before entering and exiting the context. In this case we are using a context manager called pytest.raises()
+- It takes a single argument, which is the **type of exception** that we are checking for, in this case, a ValueError. This context manager does not run any code on entering the context, but it does something on exit.
+- If the code in the context raises a ValueError, the context manager silences the error.And if the code in the context does not raise a ValueError, the context manager raises an exception itself.
+
+```python
+with pytest.raises(ValueError):
+    raise ValueError    # context exits with ValueError
+    # <-- pytest.raises(ValueError) silences it
+```
+
+- Here is an example where a ValueError is raised in the context and silenced by the context manager.
+
+```python
+with pytest.raises(ValueError):
+    pass # context exxits without raising a ValueError
+    # <-- pytest.raises(ValueError) raises Failed
+```
+
+- The second code block shows an example where no ValueError is raised and the context manager raises an exception called Failed.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
