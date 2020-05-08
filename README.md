@@ -212,6 +212,7 @@ split_into_training_and_testing_sets(example_argument)
 def test_valueerror_on_one_dimensional_argument():
     example_argument = np.array([2081, 314942, 1059, 186606, 1148, 206186])
     with pytest.raises(ValueError):
+        split_into_training_and_testing_sets(example_argument)
 ```
 
 #### Theoretical structure of a with statement
@@ -241,10 +242,13 @@ with pytest.raises(ValueError):
 
 - The second code block shows an example where no ValueError is raised and the context manager raises an exception called Failed.
 
+#### Unit testing exceptions
+- Getting back to the unit test, we call the function on the one dimensional array inside the context.
+- If the function raises a `ValueError` as expected, it will be silenced and the test will pass.
+- If the function is buggy and no `ValueError` is raised, the context manager raises a Failed exception, causing the test to fail.
 
-
-
-
+#### Testing the error message
+- We can unit test details 
 
 
 
