@@ -1,3 +1,6 @@
+import numpy as np
+from sklearn.model_selection import train_test_split
+
 def row_to_list(row):
     # "2,081\t314,942\n"
     try:
@@ -12,3 +15,39 @@ def row_to_list(row):
 def convert_to_int(value):
     value = value.replace(',', '')
     return int(value)
+
+def get_data_as_numpy_array(path, num_columns=2):
+    with open(path, 'r') as f:
+        l = f.readlines()
+    row_1 = []
+    row_2 = []
+    for ele in l:
+        # print(ele.split('\t'))
+        row_1.append(ele.split('\t')[0])
+        row_2.append(ele.split('\t')[1].strip('\n'))
+    print(row_1, row_2)
+    n = np.empty(shape=(3,num_columns))
+    seq = 0
+    for i, val in enumerate(row_1):
+        n[i, seq] = val
+    seq = 1
+    for i, val in enumerate(row_2):
+        n[i, seq] = val
+    return n
+
+
+# get_data_as_numpy_array('example_clean_data.txt', 2)
+def split_into_training_and_testing_sets(array):
+    train, test = train_test_split(array)
+    print(train.shape, test.shape)
+    # print(train)
+    # print(test)
+    return (train, test)
+# split_into_training_and_testing_sets(np.array([[  2081., 314942.],
+#        [  1059., 186606.],
+#        [  1148., 206186.],
+#        [  1506., 248419.],
+#        [  1210., 214114.],
+#        [  1697., 277794.]])
+# )
+
