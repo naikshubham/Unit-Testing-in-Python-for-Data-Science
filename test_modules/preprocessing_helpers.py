@@ -38,6 +38,8 @@ def get_data_as_numpy_array(path, num_columns=2):
 
 # get_data_as_numpy_array('example_clean_data.txt', 2)
 def split_into_training_and_testing_sets(array):
+    if array.shape[0] <= 1:
+        raise ValueError("Argument data_array must have at least 2 rows, it actually has just 1")
     train, test = train_test_split(array)
     print(train.shape, test.shape)
     # print(train)
