@@ -248,7 +248,33 @@ with pytest.raises(ValueError):
 - If the function is buggy and no `ValueError` is raised, the context manager raises a Failed exception, causing the test to fail.
 
 #### Testing the error message
-- We can unit test details 
+- We can unit test details of the raised exception as well.For e.g we might want to check if the raised ValueError contains the correct error message which starts with "Argument data array must be two dimensional". 
+- Inorder to do that, we extend the with statement with the as clause.If the value error is raised within the context, then exception_info will contain the information about the silenced ValueError. 
+- After the context ends, we can check whether `exception_info` has the correct message.To do this, we use a simple assert statement with the match() method of `exception_info`. The match method takes a string as argument and checks if the string is present in the error message.
+
+```python
+def test_valueerror_on_one_dimensional_argument():
+    example_argument = np.array([2081, 314942, 1059, 186606, 1148, 206186])
+    with pytest.raises(ValueError) as exception_info:   # store the exception
+        split_into_training_and_testing_sets(example_argument)
+        
+    # check if ValueError contains correct message
+    assert exception_info.match("Argument data array must be 2 dim.Got 1 dim array instead")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
