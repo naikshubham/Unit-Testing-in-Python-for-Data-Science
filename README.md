@@ -262,6 +262,59 @@ def test_valueerror_on_one_dimensional_argument():
     assert exception_info.match("Argument data array must be 2 dim.Got 1 dim array instead")
 ```
 
+### The well tested function
+- How many tests should one write for a function ? Consider the `split_into_training_and_testing_sets` function, it takes a 2-D numpy array as an argument and randomly puts about 75% of the rows into a training array, and the remaining rows into a testing array. It returns the training and testing array as a tuple with these 2 arrays.
+- Because this function has randomness, we test for the lengths of the training and testing arrays rather than their actual values. The length of the training array is given by the integer part of 0.75 times the number of rows in the argument. The testing array gets the rest.
+- In general, the more arguments we check the more confident we can be that the function is working correctly.But since we cant write test for 100 of arguments because of time limitations, how many tests can be considered enough ?
+
+#### Test argument types
+- The best practise is to pick a few from each of the following categories of arguments, which are called **bad arguments, special arguments and normal arguments**
+- If we have tested all of these argument types then our function can be declared well tested.
+
+##### Type I : Bad arguments
+- Bad arguments are arguments for which the function raises an exception instead of returning a value. For split_into_training_and_testing_sets(), 1-d array is a bad argument. The expected outcome is a ValueError. `e.g np.array([845.0, 310360, 1291.0, 72205.0])`
+- An array with a single row is also a bad argument, because this row can be put into the training array, but then the testing array will be empty.
+
+##### Type II : Special arguments
+- These are two types: `boundary values` and `argument values` for which the function uses a special logic to produce the return value. What are boundary values? If we look at the number of rows of the argument, we see that the fucntion raises a ValueError for one row, but returns training and testing array for arguments having more than one row. The value two marks a boundary for this behaviour change, and therefore is a boundary value.
+- The other type of special arguments are those that trigger special logic in the function. Argument containing 4 rows, the standard logic of 75% and 25% split would produce a training array with 3 rows and a testing array with 1 row. But we might want the function to return a training array with 2 rows and testing array with 2 rows instead. Then 4 rows would be a special case, because the function isnt using the usual 75% and 25% logic.
+- Finally, anything that is not a bad or special argument is a normal argument.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
