@@ -280,6 +280,26 @@ def test_valueerror_on_one_dimensional_argument():
 - The other type of special arguments are those that trigger special logic in the function. Argument containing 4 rows, the standard logic of 75% and 25% split would produce a training array with 3 rows and a testing array with 1 row. But we might want the function to return a training array with 2 rows and testing array with 2 rows instead. Then 4 rows would be a special case, because the function isnt using the usual 75% and 25% logic.
 - Finally, anything that is not a bad or special argument is a normal argument.
 
+### Test Driven Development (TDD)
+- New coding method : TDD which tries to ensure that unit tests do get written. Normally a function is first written and then tested. TDD alters the usual life cycle by adding a single step before implementation. This step involves writing unit tests for the function.
+
+#### Write unit tests before implementation!
+- Write unit tests even before function is implemented in code. By making unit tests a precondition for implementation, this ensures that writing unit tests cannot be postponed or deprioritized.
+- Time for writing unit tests factored in implementation time.
+- Furthermore, when we write unit tests first, we have to think of possible arguments and return values- which includes normal, special and bad arguments. This type of thinking before implementation actually helps in finalizing the requirements for a function. When the requirements for a function is clear and precise, it makes the implementation much easier.
+
+##### Step 1 : Write unit tests and fix requirements
+- First, write the tests for this function in the test module `test_convert_to_int.py`. As we write the unit tests, we will think more about the requirements of this function.
+
+##### Step 2 : Run tests and watch it fail
+- Execute the test module, the tests will not pass because the function does not even exists yet.
+
+##### Step 3 : Implement the function and run tests again
+- If the function implemented correctly then the test should pass this time.
+
+
+
+
 
 
 
