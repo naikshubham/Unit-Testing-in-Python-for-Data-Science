@@ -297,11 +297,14 @@ def test_valueerror_on_one_dimensional_argument():
 ##### Step 3 : Implement the function and run tests again
 - If the function implemented correctly then the test should pass this time.
 
+### How to organize a growing set of tests?
+- As the number of unit tests keeps growing we would need a strategy to keep all these tests organized.
 
+<p align="center">
+  <img src="./images/structure.JPG" width="350" title="Structure">
+</p>
 
-
-
-
+- The developers of pytest recommend that we create a directory called tests at the same level as src. This directory is also called the test suite. Inside this folder, we simply mirror the inner structure of src and create empty packages called data, features and models respectivey.
 
 
 
