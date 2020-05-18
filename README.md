@@ -306,6 +306,77 @@ def test_valueerror_on_one_dimensional_argument():
 
 - The developers of pytest recommend that we create a directory called tests at the same level as src. This directory is also called the test suite. Inside this folder, we simply mirror the inner structure of src and create empty packages called data, features and models respectivey.
 
+#### Python module and test module correspondence
+- The general rule is that for each python module `my_module.py`, there should be a corresponding test module called `test_my_module.py` . For e.g, for the module `preprocessing_helpers.py` , we create a test module called `test_preprocessing_helpers.py`. Since `preprocessing_helpers.py` belongs to the data package, we put the corresponding test module in the mirrored package inside the tests directory.
+- The mirroring in the directory structure and test module names ensure that if we know where to find application code, we can follow the same route inside the test directory to access corresponding tests.
+- The test module `test_preprocessing_helpers.py` should contain tests for `row_to_list()` and `convert_to_int()`. We can put all the tests in sequentail manner, but that's very complex. 
+
+#### Test class
+- pytest solves the problem of complex sequential tests using a construct called the test class.
+
+#### Test class is a container for a single unit's tests
+- A test class is just a simple container for tests of a specific function.
+
+#### Test class : theoretical structure
+- the name of the class should be in CamelCase, and should always start with "Test".
+- the best way to name a test class is to follow the "Test" with the name of the function, for example, TestRowToList
+- A test class takes one argument, and this argument is always called object.
+- Now put all test for the function under the test class. Note that, this time, all tests should receive a single argument called self.
+
+```python
+import pytest
+from data.preprocessing_helpers import row_to_list, convert_to_int
+
+class TestRowToList(object):  # always put the argument object
+    def test_on_no_tab_no_missing_value(self):  # a test for row_to_list()
+        ...
+        
+    def test_on_two_tabs_no_missing_value(self): # another test for row_to_list()
+        ...
+
+class TestConvertToInt(object):  # test class for convert_to_int()
+    def test_with_no_comma(self): # a test for convert to int
+        ...
+        
+    def test_with_one_comma(self):  # another test for convert_to_int()
+        ...
+```
+
+
+        
+        
+        
+        
+        
+     
+                       
+                    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
