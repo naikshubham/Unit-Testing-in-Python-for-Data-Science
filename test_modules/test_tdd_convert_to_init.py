@@ -40,4 +40,4 @@ def test_on_string_with_incorrectly_placed_comma():
 def test_on_float_valued_string():
     actual = convert_to_int("23,816.92")
     # Complete the assert statement
-    assert actual is None, "Expected: None, Actual: {0}".format(actual)
+    assert actual is None, "Expected: None, Actual: {0}".format(actual)s
