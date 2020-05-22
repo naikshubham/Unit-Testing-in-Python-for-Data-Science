@@ -320,8 +320,8 @@ def test_valueerror_on_one_dimensional_argument():
 #### Test class : theoretical structure
 - the name of the class should be in CamelCase, and should always start with "Test".
 - the best way to name a test class is to follow the "Test" with the name of the function, for example, TestRowToList
-- A test class takes one argument, and this argument is always called object.
-- Now put all test for the function under the test class. Note that, this time, all tests should receive a single argument called self.
+- A test class takes one argument, and this argument is always called **object**.
+- Now put all test for the function under the test class. Note that, this time, all tests should receive a single argument called **self**.
 
 ```python
 import pytest
@@ -342,14 +342,74 @@ class TestConvertToInt(object):  # test class for convert_to_int()
         ...
 ```
 
+### Mastering test execution
+#### Test organization
+- The centerpiece was the **tests folder**, which holds all tests for the project. The folder contains mirror packages, each of which contains a **test module**. The test modules contain many **test classes**. A test class is just a container for **unit tests for a particular function**.
+        
+<p align="center">
+  <img src="./images/tests.JPG" width="350" title="tests">
+</p>    
+ 
+#### Running all tests
+- pytest provides an easy way to run all tests contained in the tests folder.We simply change to the tests directory and run the command **pytest**.
 
-        
-        
-        
-        
-        
+```python
+cd tests
+pytest
+```
+
+- This command automatically discovers tests by recursing into the subtree of the working directory. It identifies all files with names starting with "test_" as test modules. Within test modules, it identifies classes with names starting with "Test" as test classes.
+- Within each test class, it identifies all functions with names starting with "test_" as unit tests. It collects these unit tests and runs them all.
      
-                       
+#### Typical scenario : CI server
+- A typical scenario to run this command is in a CI server after a commit is pushed to the code base.In this case, we are only interested in the binary question: do all unit tests pass after including the commit?
+
+#### The -x flag : stop after first failure
+- Adding the **`-x flag`** to the pytest command can save time and resources.This flag makes pytest stop after the first failing test, because a failing test already answers the binary question.
+
+#### Running subset of tests
+- Very often, we would only want to run a subset of tests. Just type pytest followed by the path to the module. `pytest data/test_preprocessing_helpers.py`. This only runs the 13 tests contained in test_preprocessing_helpers.
+
+#### Node ID
+- During automatic test discovery, pytest assigns a node ID to every test class and unit test that it encounters.
+- Node ID of the test class : `<path to test module>::<test class name>`
+- Node ID of an unit test   : `<path to test module>::<test class name>::<unit test name>`
+
+#### Running tests using Node ID
+- Run test class `TestRowToList` --> `pytest data/test_preprocessing_helpers.py::TestRowToList`
+- When we run the command pytest followed by the node ID of the test class TestRowToList, it only runs the 7 tests contained in TestRowToList.
+- When we run the command with the node ID of the unit test `test_on_one_tab_with_missing_value()`, it only runs a single test.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                     
 
 
