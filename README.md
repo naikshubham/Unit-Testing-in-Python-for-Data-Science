@@ -378,7 +378,25 @@ pytest
 #### Running tests using Node ID
 - Run test class `TestRowToList` --> `pytest data/test_preprocessing_helpers.py::TestRowToList`
 - When we run the command pytest followed by the node ID of the test class TestRowToList, it only runs the 7 tests contained in TestRowToList.
-- When we run the command with the node ID of the unit test `test_on_one_tab_with_missing_value()`, it only runs a single test.
+- When we run the command with the node ID of the unit test `test_on_one_tab_with_missing_value()`, it only runs a single test. --> `pytest data/test_preprocessing_helpers.py::TestRowToList::test_on_one_tab_with_missing_value`
+
+#### Running tests using keyword expressions
+- A faster and flexible way to do this is by using keyword expressions.
+
+##### The -k option : pytest -k "pattern"
+- To run tests using keyword expressions, use the -k option. This option takes a quoted string containing a pattern as the value. For example, we can specify a test class such as `TestSplitIntoTrainingAndTestingSets` as the pattern, and this will run only the 2 tests within that test class.
+- We can also enter only part of the test class name, as long as that is unique. `pytest -k "TestSplit"`. This saves a lot of typing and has the same outcome.
+
+#### Supports Python logical operators
+- We can even use Python logical operators in the pattern to do more complex subsetting.For eg.,the following command will execute all tests in TestSplitIntoTrainingAndTestingSEts except the unit test test_on_one_row(), which only leaves one test to run.
+- `pytest -k "TestSplit and not test_on_one_row"`
+
+
+
+
+
+
+
 
 
 
