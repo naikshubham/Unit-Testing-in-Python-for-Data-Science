@@ -391,6 +391,122 @@ pytest
 - We can even use Python logical operators in the pattern to do more complex subsetting.For eg.,the following command will execute all tests in TestSplitIntoTrainingAndTestingSEts except the unit test test_on_one_row(), which only leaves one test to run.
 - `pytest -k "TestSplit and not test_on_one_row"`
 
+### Expected failures and conditional skipping
+
+#### Implementing a function using TDD
+- `train_model()` : Returns best fit line given training data
+- Since we are using TDD, the first step is to write tests, so we create a test class TestTrainModel and add a test to it.
+
+```python
+import pytest
+
+class TestTrainModel(object):
+    def test_on_linear_data(self):
+    ...
+```
+
+- If we run pytest, this test will fail because the function `train_model()` is not yet implemented.This is just a result of using TDD, it doesnt indicate problem with the code base.
+
+#### False alarm
+- But the CI server does not know this and will set off a false alarm when that test fails. It would be nice to have a way to tell pytest that we except this test to fail. We do that using the `xfail` decorator.
+
+#### xfail : marking tests as "expected to fail"
+- The decorator goes on top of a test, and starts with @.This is followed by the name of the decorator `pytest.mark.xfail`. After adding the decorator, if we run pytest again, we see that one test is xfailed. But there are no reported errors.
+
+```python
+import pytest
+
+class TestTrainModel(object):
+    @pytest.mark.xfail
+    def test_on_linear_data(self):
+        ...
+```
+
+#### Expected failures, but conditionally
+- In some cases, we know that test fails only under certain consitions, and we dont want to be warned about them.Common situations are when some function wont work under a particular python version or a particular platform.
+
+#### skipif : skip tests conditionally
+- To tell python to skip running the test we need `skipif` decorator. The name of the decorator is `@pytest.mark.skipif(boolen expression)`. It takes a single boolean expression as argument. If the boolean expression is True, then the test will be skipped.
+- import and use the module sys to check python version
+
+```python
+import sys
+
+class TestCOnvertToInt(object):
+    @pytest.mark.skipif(sys.version_info > (2,7), reason="requires Python 2.7")
+    def test_with_no_comma(self):
+        ...
+```
+- Showing reason in the test result report --> `pytest -r`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
